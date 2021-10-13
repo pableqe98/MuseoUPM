@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "674657844922",
+    "firebase_url": "https://museo-upm-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "museo-upm",
+    "storage_bucket": "museo-upm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674657844922:android:a8ba90632a5f913b69cc83",
+        "android_client_info": {
+          "package_name": "com.example.museoupm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674657844922-rdp48g2qskj0cnh2mgjtjj0oih5uomm2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.museoupm",
+            "certificate_hash": "d03e72dc314d3bc89ce37184d984dfdc92460d89"
+          }
+        },
+        {
+          "client_id": "674657844922-506r9e3g5i11qm5q3cq1v359g7rsuue8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH5q6Gzt3P3kBN09EgZg-VeUp_uvT0Ffw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674657844922-506r9e3g5i11qm5q3cq1v359g7rsuue8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
