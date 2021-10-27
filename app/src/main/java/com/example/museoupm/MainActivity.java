@@ -39,15 +39,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void generacion1(View v){
-        generacion("generacion1");
+        generacion(GENERACION_1);
     }
 
     public void generacion2(View v){
-        generacion("generacion2");
+        generacion(GENERACION_2);
     }
 
     public void generacion3(View v){
-        generacion("generacion3");
+        generacion(GENERACION_3);
     }
 
     public void generacion(String nombreGeneracion){
@@ -147,5 +147,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void empezarEscanerQR(View v){
+        Intent intent = new Intent(MainActivity.this, ScanQR.class);
 
+        startActivity(intent);
+    }
 }
