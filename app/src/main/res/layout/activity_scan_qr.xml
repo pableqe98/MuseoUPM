@@ -11,12 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
-        android:padding="13dp">
-
-        <SurfaceView
-            android:id="@+id/camera_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        android:padding="13dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
