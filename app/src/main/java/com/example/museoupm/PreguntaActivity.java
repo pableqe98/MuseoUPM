@@ -21,6 +21,8 @@ public class PreguntaActivity extends AppCompatActivity {
     RadioButton respuesta2;
     RadioButton respuesta3;
     RadioButton respuesta4;
+    TextView contador;
+
     String respuesta_correcta;
     int n_pregunta;
     int preguntas_acertadas;
@@ -37,7 +39,8 @@ public class PreguntaActivity extends AppCompatActivity {
         respuesta2 = (RadioButton) findViewById(R.id.respuesta2);
         respuesta3 = (RadioButton) findViewById(R.id.respuesta3);
         respuesta4 = (RadioButton) findViewById(R.id.respuesta4);
-        radioGroup = (RadioGroup) findViewById(R.id.rgRespuestas) ;
+        radioGroup = (RadioGroup) findViewById(R.id.rgRespuestas);
+        contador = (TextView) findViewById(R.id.txtAciertos);
 
 
         Intent intent = getIntent();
@@ -49,14 +52,14 @@ public class PreguntaActivity extends AppCompatActivity {
         cargarPregunta(1);
 
         //for (Pregunta pregunta : preguntas){
-        System.out.println(preguntas.size());
+        //System.out.println(preguntas.size());
         //}
 
 
     }
 
-    protected void cargarPregunta(int n_pregunta){
-        n_pregunta = n_pregunta-1;
+    protected void cargarPregunta(int n_preg){
+        n_pregunta = n_preg-1;
 
         Pregunta pregunta = preguntas.get(n_pregunta);
         ArrayList<String> respuestas = pregunta.getRespuestas();
@@ -70,6 +73,8 @@ public class PreguntaActivity extends AppCompatActivity {
 
         respuesta_correcta = pregunta.getCorrecta();
 
+        String text = getString(R.string.mostrar_aciertos, preguntas_acertadas);
+        contador.setText(text);
     }
 
     public void responderPregunta(View v){
