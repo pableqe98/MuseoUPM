@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MuseoUPM</string>
     <string name="mostrar_aciertos">%1$i/5 aciertos</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="google_login">Google</string>
+    <string name="prefs_file">com.example.museoupm.PREFERENCE_FILE_KEY</string>
+
 </resources>
