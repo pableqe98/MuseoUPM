@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String email = "";
         String tipo = "google";
-        String password = "";
+
+        Bundle content = getIntent().getExtras();
+        email = content.getString("email");
+        tipo = content.getString("tipo");
 
         SharedPreferences.Editor prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
         prefs.putString("emailGoogle",email);
@@ -46,18 +50,14 @@ public class MainActivity extends AppCompatActivity {
         prefs.apply();
     }
 
-    //public void generacion1(View v){
-    //    generacion(GENERACION_1);
-    //}
+    public void logOut(View v){
+        SharedPreferences.Editor prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
+        prefs.clear();
+        prefs.apply();
 
-    //public void generacion2(View v){
-    //    generacion(GENERACION_2);
-    //}
-
-    //public void generacion3(View v){
-//        generacion(GENERACION_3);
-  //  }
-
+        FirebaseAuth.getInstance().signOut();
+        onBackPressed();
+    }
 
     public void empezarEscanerQR(View v){
         Intent intent = new Intent(MainActivity.this, ScanQR.class);

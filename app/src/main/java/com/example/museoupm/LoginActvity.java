@@ -55,6 +55,7 @@ public class LoginActvity extends AppCompatActivity {
 
         if (email_saved != null && password_saved != null && tipo_saved != null ){
             //TODO: Iniciar sesión
+            goMainActivity(email_saved,tipo_saved);
         }
     }
 
