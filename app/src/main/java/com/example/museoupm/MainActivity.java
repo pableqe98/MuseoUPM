@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String GENERACION_4 = "generacion4";
     private static final String GENERACION_5 = "generacion5";
 
-
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,39 @@ public class MainActivity extends AppCompatActivity {
         prefs.putString("emailGoogle",email);
         prefs.putString("tipo", tipo);
         prefs.apply();
+        //Inicializo información en Realtime Database si no existía este usuario
+        initializeDBinfo(email);
+
+    }
+
+    public void initializeDBinfo(String email){
+
+        //elimino los '.' del email
+        email = email.replace(".","");
+        //Comprobar si existe
+        DatabaseReference existsUser = database.getReference().child("Usuarios").child(email);
+
+        String finalEmail = email;
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Si no existe, añadir a RTDB
+                if(!dataSnapshot.exists()) {
+                    System.out.println("NUEVO USUARIO QUE AÑADIR");
+
+                    existsUser.child("medallas").child("ejemplo").setValue("ejemplo");
+                    existsUser.child("respuestas_correctas").child("ejemplo").setValue("ejemplo");
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("ERROR", databaseError.getMessage()); //Don't ignore errors!
+            }
+        };
+        existsUser.addListenerForSingleValueEvent(eventListener);
+
     }
 
     public void logOut(View v){

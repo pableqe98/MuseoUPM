@@ -27,14 +27,10 @@ public class LoginActvity extends AppCompatActivity {
 
     private int GOOGLE_SIGN_IN = 100;
 
-    Button googleButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_actvity);
-
-        googleButton = (Button) findViewById(R.id.btnLogin);
-
 
         session();
     }
@@ -50,10 +46,9 @@ public class LoginActvity extends AppCompatActivity {
     private void session(){
         SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
         String email_saved = prefs.getString("emailGoogle",null);
-        String password_saved = prefs.getString("password",null);
         String tipo_saved = prefs.getString("tipo",null);
 
-        if (email_saved != null && password_saved != null && tipo_saved != null ){
+        if (email_saved != null && tipo_saved != null ){
             //TODO: Iniciar sesión
             goMainActivity(email_saved,tipo_saved);
         }
