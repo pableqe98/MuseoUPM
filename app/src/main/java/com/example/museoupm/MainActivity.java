@@ -41,27 +41,28 @@ public class MainActivity extends AppCompatActivity {
         String email = "";
         String tipo = "google";
 
-        Bundle content = getIntent().getExtras();
-        email = content.getString("email");
-        tipo = content.getString("tipo");
+        if (getIntent().hasExtra("email")) {
+            Bundle content = getIntent().getExtras();
+            email = content.getString("email");
+            tipo = content.getString("tipo");
 
-        SharedPreferences.Editor prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
-        prefs.putString("emailGoogle",email);
-        prefs.putString("tipo", tipo);
-        prefs.apply();
-        //Inicializo información en Realtime Database si no existía este usuario
-        initializeDBinfo(email);
+            SharedPreferences.Editor prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
+            prefs.putString("emailGoogle", email);
+            prefs.putString("tipo", tipo);
+            prefs.apply();
+            //Inicializo información en Realtime Database si no existía este usuario
+            initializeDBinfo(email);
+        }
 
     }
 
     public void initializeDBinfo(String email){
 
         //elimino los '.' del email
-        email = email.replace(".","");
+        String email_no_dot = email.replace(".","");
         //Comprobar si existe
-        DatabaseReference existsUser = database.getReference().child("Usuarios").child(email);
+        DatabaseReference existsUser = database.getReference().child("Usuarios").child(email_no_dot);
 
-        String finalEmail = email;
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

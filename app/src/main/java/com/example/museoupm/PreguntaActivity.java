@@ -2,19 +2,32 @@ package com.example.museoupm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 
 public class PreguntaActivity extends AppCompatActivity {
 
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
     ArrayList<Pregunta> preguntas = new ArrayList<>();
+    TextView titulo_generacion;
     TextView enunciado;
     RadioGroup radioGroup;
     RadioButton respuesta1;
@@ -26,6 +39,7 @@ public class PreguntaActivity extends AppCompatActivity {
     String respuesta_correcta;
     int n_pregunta;
     int preguntas_acertadas;
+    String email_saved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +48,7 @@ public class PreguntaActivity extends AppCompatActivity {
 
         preguntas_acertadas=0;
 
+        titulo_generacion = (TextView) findViewById(R.id.txtTituloGeneracion);
         enunciado = (TextView) findViewById(R.id.txtPregunta);
         respuesta1 = (RadioButton) findViewById(R.id.respuesta1);
         respuesta2 = (RadioButton) findViewById(R.id.respuesta2);
@@ -42,24 +57,24 @@ public class PreguntaActivity extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.rgRespuestas);
         contador = (TextView) findViewById(R.id.txtAciertos);
 
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        email_saved = prefs.getString("emailGoogle",null);
 
         Intent intent = getIntent();
         Generacion generacion = intent.getExtras().getParcelable("GENERACION");
+        String generacion_titulo = intent.getExtras().getString("generacion_titulo");
+        titulo_generacion.setText(generacion_titulo);
 
         preguntas = generacion.getPreguntas();
 
-        n_pregunta = 1;
-        cargarPregunta(1);
-
-        //for (Pregunta pregunta : preguntas){
-        //System.out.println(preguntas.size());
-        //}
+        n_pregunta = 0;
+        cargarPregunta(n_pregunta);
 
 
     }
 
     protected void cargarPregunta(int n_preg){
-        n_pregunta = n_preg-1;
+        n_pregunta = n_preg;
 
         Pregunta pregunta = preguntas.get(n_pregunta);
         ArrayList<String> respuestas = pregunta.getRespuestas();
@@ -73,37 +88,52 @@ public class PreguntaActivity extends AppCompatActivity {
 
         respuesta_correcta = pregunta.getCorrecta();
 
-        String text = getString(R.string.mostrar_aciertos, preguntas_acertadas);
+        String text = Integer.toString(preguntas_acertadas) + "/5 aciertos"; //getString(R.string.mostrar_aciertos, Integer.toString(preguntas_acertadas));
         contador.setText(text);
     }
 
     public void responderPregunta(View v){
-        n_pregunta += 1;
+
 
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
         // find the radiobutton by returned id
         RadioButton respuesta = (RadioButton) findViewById(selectedId);
         String msg ="";
-        if(respuesta.getText() == respuesta_correcta){
+        String rp = respuesta.getText().toString();
+        if(respuesta.getText().toString().equals(respuesta_correcta)){
             preguntas_acertadas++;
             msg = "ACERTASTE";
+
+            //Añado una nueva respuesta correcta a la BD
+            Date dt = new Date();
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.GERMANY);
+            String today = formatter.format(dt);
+
+            String email_no_dot = email_saved.replace(".","");
+
+            database.getReference().child("Usuarios").child(email_no_dot)
+                    .child("respuestas_correctas").push().setValue(today);
+
         }
         else{
             msg = "FALLASTE";
         }
 
-        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
-        if (n_pregunta<=5) {
+        n_pregunta += 1;
+
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+        if (n_pregunta<5) {
             cargarPregunta(n_pregunta);
         }
         else {
             Toast.makeText(this,"FIN DE GENERACION",Toast.LENGTH_LONG).show();
 
+            SystemClock.sleep(4500);
             //TODO: Gestionar medallas
 
             Intent intent = new Intent(PreguntaActivity.this, MainActivity.class);
-
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
 

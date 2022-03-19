@@ -2,6 +2,7 @@ package com.example.museoupm;
 
 import static java.security.AccessController.getContext;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -64,11 +65,11 @@ public class ScanQR extends AppCompatActivity {
 
         if (result != null){
             if (result.getContents() == null){
-                Toast.makeText(this,"Lectura cancelada",Toast.LENGTH_LONG);
+                Toast.makeText(this,"Lectura cancelada",Toast.LENGTH_LONG).show();
             }
             else {
                 token = result.getContents();
-                //Log.e("Result",token);
+                Log.e("Result",token);
                 generacion(token);
 
             }
@@ -81,11 +82,12 @@ public class ScanQR extends AppCompatActivity {
 
     public void generacion(String nombreGeneracion){
         DatabaseReference ref = database.getReference("preguntas/" + nombreGeneracion );
-
+        String n_generacion = nombreGeneracion.substring(nombreGeneracion.length() - 1);
+        String titulo_generacion = "Generación " + n_generacion;
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Pregunta> preguntas = new ArrayList<>();
 
                 HashMap respuesta =(HashMap) dataSnapshot.getValue();
@@ -124,12 +126,7 @@ public class ScanQR extends AppCompatActivity {
                 );
                 Pregunta pregunta3 = new Pregunta(((HashMap)respuesta.get("pregunta3")).get("correcta").toString(),
                         ((HashMap)respuesta.get("pregunta3")).get("enunciado").toString(),
-                        new ArrayList<String>(){{
-                            ((HashMap) respuesta.get("pregunta3")).get("respuesta1").toString();
-                            ((HashMap) respuesta.get("pregunta3")).get("respuesta2").toString();
-                            ((HashMap) respuesta.get("pregunta3")).get("respuesta3").toString();
-                            ((HashMap) respuesta.get("pregunta3")).get("respuesta4").toString();
-                        }}
+                        respuestas3
                 );
                 preguntas.add(pregunta3);
 
@@ -164,8 +161,10 @@ public class ScanQR extends AppCompatActivity {
 
                 Intent intent = new Intent(ScanQR.this, PreguntaActivity.class);
                 intent.putExtra("GENERACION", (Parcelable) generacion);
+                intent.putExtra("generacion_titulo", titulo_generacion);
                 startActivity(intent);
 
+                finish();
 
             }
 
