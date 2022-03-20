@@ -8,9 +8,13 @@
         <entry key="..\:/Users/pablo/AndroidStudioProjects/MuseoUPM/app/src/main/res/layout/activity_pregunta.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.18206521739130435" />
         <entry key="app/src/main/res/layout/activity_login_actvity.xml" value="0.178125" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.12273550724637682" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_pregunta.xml" value="0.18659420289855072" />
         <entry key="app/src/main/res/layout/activity_scan_qr.xml" value="0.12273550724637682" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1852355072463768" />
+        <entry key="app/src/main/res/layout/fragment_qr.xml" value="0.1852355072463768" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1852355072463768" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19375" />
       </map>
     </option>
   </component>
