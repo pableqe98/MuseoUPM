@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtTituloGeneracion" />
 
     <RadioGroup
-        android:id="@+id/rgRespuestas"
+        android:id="@+id/rgDificultad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -35,19 +35,19 @@
         app:layout_constraintTop_toBottomOf="@+id/txtPregunta">
 
         <RadioButton
-            android:id="@+id/respuesta1"
+            android:id="@+id/facil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Respuesta 1" />
 
         <RadioButton
-            android:id="@+id/respuesta2"
+            android:id="@+id/normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Respuesta 2" />
 
         <RadioButton
-            android:id="@+id/respuesta3"
+            android:id="@+id/dificil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Respuesta 3" />
@@ -70,7 +70,7 @@
         android:text="RESPONDER"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgRespuestas" />
+        app:layout_constraintTop_toBottomOf="@+id/rgDificultad" />
 
     <TextView
         android:id="@+id/txtAciertos"

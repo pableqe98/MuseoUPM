@@ -25,7 +25,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActvity extends AppCompatActivity {
 
-    private int GOOGLE_SIGN_IN = 100;
+    private final int GOOGLE_SIGN_IN = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

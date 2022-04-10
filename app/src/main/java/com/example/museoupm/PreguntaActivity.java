@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.UUID;
 
 public class PreguntaActivity extends AppCompatActivity {
 
@@ -40,6 +39,7 @@ public class PreguntaActivity extends AppCompatActivity {
     int n_pregunta;
     int preguntas_acertadas;
     String email_saved;
+    String dificultad ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +50,11 @@ public class PreguntaActivity extends AppCompatActivity {
 
         titulo_generacion = (TextView) findViewById(R.id.txtTituloGeneracion);
         enunciado = (TextView) findViewById(R.id.txtPregunta);
-        respuesta1 = (RadioButton) findViewById(R.id.respuesta1);
-        respuesta2 = (RadioButton) findViewById(R.id.respuesta2);
-        respuesta3 = (RadioButton) findViewById(R.id.respuesta3);
+        respuesta1 = (RadioButton) findViewById(R.id.facil);
+        respuesta2 = (RadioButton) findViewById(R.id.normal);
+        respuesta3 = (RadioButton) findViewById(R.id.dificil);
         respuesta4 = (RadioButton) findViewById(R.id.respuesta4);
-        radioGroup = (RadioGroup) findViewById(R.id.rgRespuestas);
+        radioGroup = (RadioGroup) findViewById(R.id.rgDificultad);
         contador = (TextView) findViewById(R.id.txtAciertos);
 
         SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
@@ -63,6 +63,8 @@ public class PreguntaActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Generacion generacion = intent.getExtras().getParcelable("GENERACION");
         String generacion_titulo = intent.getExtras().getString("generacion_titulo");
+        dificultad = intent.getExtras().getString("dificultad");
+
         titulo_generacion.setText(generacion_titulo);
 
         preguntas = generacion.getPreguntas();

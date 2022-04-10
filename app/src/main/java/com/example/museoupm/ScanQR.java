@@ -18,9 +18,12 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.webkit.URLUtil;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,11 +36,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ScanQR extends AppCompatActivity {
 
     private String token = "";
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    String dificultad = "";
+    String email = "";
 
     SurfaceView cameraView;
     @Override
@@ -45,6 +51,11 @@ public class ScanQR extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_qr);
 
+        if (getIntent().hasExtra("email")) {
+            Bundle content = getIntent().getExtras();
+            email = content.getString("email");
+            email = email.replace(".","");
+        }
 
         initQR();
 
@@ -70,6 +81,17 @@ public class ScanQR extends AppCompatActivity {
             else {
                 token = result.getContents();
                 Log.e("Result",token);
+                database.getReference().child("Usuarios").child(email).child("dificultad").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        }
+                        else {
+                            dificultad = Objects.requireNonNull(task.getResult().getValue()).toString();
+                        }
+                    }
+                });
                 generacion(token);
 
             }
@@ -162,6 +184,7 @@ public class ScanQR extends AppCompatActivity {
                 Intent intent = new Intent(ScanQR.this, PreguntaActivity.class);
                 intent.putExtra("GENERACION", (Parcelable) generacion);
                 intent.putExtra("generacion_titulo", titulo_generacion);
+                intent.putExtra("dificultad", dificultad);
                 startActivity(intent);
 
                 finish();

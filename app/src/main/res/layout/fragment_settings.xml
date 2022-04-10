@@ -11,6 +11,65 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/txtDificultad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="14dp"
+                    android:text="Dificultad"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rgDificultad"
+                    android:layout_width="107dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/facil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fácil" />
+
+                    <RadioButton
+                        android:id="@+id/normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Normal" />
+
+                    <RadioButton
+                        android:id="@+id/dificil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Difícil" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/btnGuardarDificultad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="14dp"
+                    android:text="Guardar Dificultad" />
+
+            </LinearLayout>
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"

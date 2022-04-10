@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String GENERACION_4 = "generacion4";
     private static final String GENERACION_5 = "generacion5";
 
+    String email;
+
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        String email = "";
+        email = "";
         String tipo = "google";
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         replaceLayout(new HomeFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("email", email);
+
             switch (item.getItemId()){
                 case R.id.home:
                     replaceLayout(new HomeFragment());
@@ -77,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
                     replaceLayout(new QrFragment());
                     break;
                 case R.id.settings:
-                    replaceLayout(new SettingsFragment());
+                    SettingsFragment settingsFragment = new SettingsFragment();
+                    settingsFragment.setArguments(bundle);
+                    replaceLayout(settingsFragment);
                     break;
             }
             return true;
@@ -108,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                     existsUser.child("medallas").child("ejemplo").setValue("ejemplo");
                     existsUser.child("respuestas_correctas").child("ejemplo").setValue("ejemplo");
+                    existsUser.child("dificultad").setValue("normal");
 
                 }
             }
@@ -132,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void empezarEscanerQR(View v){
         Intent intent = new Intent(MainActivity.this, ScanQR.class);
-
+        intent.putExtra("email",email);
         startActivity(intent);
     }
 }
