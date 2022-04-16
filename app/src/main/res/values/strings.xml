@@ -4,6 +4,11 @@
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
     <string name="google_login">Google</string>
+    <string name="home_message">Saludos, %1$s</string>
+    <string name="difficulty_changed">Dificultad actualizada</string>
+    <string name="app_title">Test Generaciones de la Informática</string>
+    <string name="medals_title">Medallas</string>
+    <string name="ranking">Ranking</string>
     <string name="prefs_file">com.example.museoupm.PREFERENCE_FILE_KEY</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

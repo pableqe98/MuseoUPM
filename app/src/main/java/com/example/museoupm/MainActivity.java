@@ -68,7 +68,13 @@ public class MainActivity extends AppCompatActivity {
             initializeDBinfo(email);
         }
 
-        replaceLayout(new HomeFragment());
+        //Preparo el primer fragment a mostrar
+        Bundle bundleInit = new Bundle();
+        bundleInit.putString("email", email);
+
+        HomeFragment homeFragment = new HomeFragment();
+        homeFragment.setArguments(bundleInit);
+        replaceLayout(homeFragment);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             Bundle bundle = new Bundle();
@@ -76,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.home:
-                    replaceLayout(new HomeFragment());
+                    HomeFragment homeFragmentSelect = new HomeFragment();
+                    homeFragmentSelect.setArguments(bundle);
+                    replaceLayout(homeFragmentSelect);
                     break;
                 case R.id.qr:
                     replaceLayout(new QrFragment());
@@ -113,7 +121,12 @@ public class MainActivity extends AppCompatActivity {
                 if(!dataSnapshot.exists()) {
                     System.out.println("NUEVO USUARIO QUE AÑADIR");
 
-                    existsUser.child("medallas").child("ejemplo").setValue("ejemplo");
+                    existsUser.child("medallas").child("generacion1").setValue(false);
+                    existsUser.child("medallas").child("generacion2").setValue(false);
+                    existsUser.child("medallas").child("generacion3").setValue(false);
+                    existsUser.child("medallas").child("generacion4").setValue(false);
+                    existsUser.child("medallas").child("generacion5").setValue(false);
+                    existsUser.child("medallas").child("generacion6").setValue(false);
                     existsUser.child("respuestas_correctas").child("ejemplo").setValue("ejemplo");
                     existsUser.child("dificultad").setValue("normal");
 

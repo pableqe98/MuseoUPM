@@ -4,10 +4,117 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#376A98"
+    android:background="#1F82C0"
     tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtEmailHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtMedallas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="81dp"
+            android:text="@string/medals_title"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmailHome" />
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:columnCount="2"
+            app:layout_constraintBottom_toTopOf="@+id/btnRanking"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtMedallas"
+            app:rowCount="3">
+
+            <ImageView
+                android:id="@+id/imageGeneracion1"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:background="@color/white"
+                android:layout_margin="7dp"
+                android:src="@android:drawable/star_big_on" />
+
+            <ImageView
+                android:id="@+id/imageGeneracion2"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:background="@color/white"
+                android:layout_margin="7dp"
+                android:src="@android:drawable/star_big_on" />
+            <ImageView
+                android:id="@+id/imageGeneracion3"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:background="@color/white"
+                android:layout_margin="7dp"
+                android:src="@android:drawable/star_big_on" />
+            <ImageView
+                android:id="@+id/imageGeneracion4"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:background="@color/white"
+                android:layout_margin="7dp"
+                android:src="@android:drawable/star_big_on" />
+            <ImageView
+                android:id="@+id/imageGeneracion5"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:background="@color/white"
+                android:layout_margin="7dp"
+                android:src="@android:drawable/star_big_on" />
+            <ImageView
+                android:id="@+id/imageGeneracion6"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:background="@color/white"
+                android:layout_margin="7dp"
+                android:src="@android:drawable/star_big_on" />
+        </androidx.gridlayout.widget.GridLayout>
+
+        <Button
+            android:id="@+id/btnRanking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginEnd="155dp"
+            android:layout_marginBottom="50dp"
+            android:text="@string/ranking"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

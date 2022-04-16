@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -65,10 +66,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             email = email.replace(".","");
         }
 
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
     }
 
 
@@ -99,6 +97,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                         break;
                 }
                 mDatabase.child("Usuarios").child(email).child("dificultad").setValue(val);
+
+                Toast.makeText(getContext(),R.string.difficulty_changed,Toast.LENGTH_SHORT).show();
             }
         });
 

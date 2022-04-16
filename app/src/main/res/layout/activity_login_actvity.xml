@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1F82C0"
     tools:context=".LoginActvity">
 
     <LinearLayout
         android:id="@+id/authLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,40 +20,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/txtEmail"
+        <ImageView
+            android:id="@+id/upmLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="243dp"
+            app:srcCompat="@drawable/upmlogo" />
+
+        <TextView
+            android:id="@+id/txtAppName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress" />
+            android:text="@string/app_title"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="27sp"
+            android:textStyle="bold" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/txtPassword"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/btnImageLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="Google Login"
+                android:onClick="googleLogin"
+                android:scaleX="0.6"
+                android:scaleY="0.6"
+                app:srcCompat="@drawable/googleicon" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnLogin"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:drawableStart="@drawable/googleicon"
-            android:onClick="googleLogin"
-            android:text="@string/google_login"
-            android:textColor="@color/black" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
