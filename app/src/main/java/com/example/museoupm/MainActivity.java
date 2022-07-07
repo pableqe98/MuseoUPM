@@ -1,5 +1,6 @@
 package com.example.museoupm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,12 +9,17 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.museoupm.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
             //Inicializo información en Realtime Database si no existía este usuario
             initializeDBinfo(email);
         }
+        /*else {
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+            email = prefs.getString("emailGoogle",null);
+        }*/
 
         //Preparo el primer fragment a mostrar
         Bundle bundleInit = new Bundle();
@@ -76,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         homeFragment.setArguments(bundleInit);
         replaceLayout(homeFragment);
 
+        setObtainedMedals();
+
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             Bundle bundle = new Bundle();
             bundle.putString("email", email);
@@ -84,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home:
                     HomeFragment homeFragmentSelect = new HomeFragment();
                     homeFragmentSelect.setArguments(bundle);
+                    setObtainedMedals();
                     replaceLayout(homeFragmentSelect);
                     break;
                 case R.id.qr:
@@ -98,6 +111,89 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+    }
+
+    private void setObtainedMedals() {
+        String email_no_dot = email.replace(".","");
+        database.getReference().child("Usuarios").child(email_no_dot)
+                .child("medallas").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting medals data", task.getException());
+                }
+                else {
+                    HashMap res = (HashMap) task.getResult().getValue();
+                    if (res != null){
+                        String boolGen1 = res.get("generacion1").toString();
+                        String boolGen2 = res.get("generacion2").toString();
+                        String boolGen3 = res.get("generacion3").toString();
+                        String boolGen4 = res.get("generacion4").toString();
+                        String boolGen5 = res.get("generacion5").toString();
+                        String boolGen6 = res.get("generacion6").toString();
+
+                        ImageView imageGen1 = (ImageView) findViewById(R.id.imagegeneracion1);
+                        ImageView imageGen2 = (ImageView) findViewById(R.id.imagegeneracion2);
+                        ImageView imageGen3 = (ImageView) findViewById(R.id.imagegeneracion3);
+                        ImageView imageGen4 = (ImageView) findViewById(R.id.imagegeneracion4);
+                        ImageView imageGen5 = (ImageView) findViewById(R.id.imagegeneracion5);
+                        ImageView imageGen6 = (ImageView) findViewById(R.id.imagegeneracion6);
+
+                        ColorMatrix matrixBW = new ColorMatrix();
+                        matrixBW.setSaturation(0);
+                        ColorMatrixColorFilter filterBW = new ColorMatrixColorFilter(matrixBW);
+
+                        ColorMatrix matrixColor = new ColorMatrix();
+                        matrixColor.setSaturation(1);
+                        ColorMatrixColorFilter filterColor = new ColorMatrixColorFilter(matrixColor);
+
+                        if (boolGen1.equals("true")){
+                            imageGen1.setColorFilter(filterColor);
+                        }
+                        else {
+                            imageGen1.setColorFilter(filterBW);
+                        }
+
+                        if (boolGen2.equals("true")){
+                            imageGen2.setColorFilter(filterColor);
+                        }
+                        else {
+                            imageGen2.setColorFilter(filterBW);
+                        }
+
+                        if (boolGen3.equals("true")){
+                            imageGen3.setColorFilter(filterColor);
+                        }
+                        else {
+                            imageGen3.setColorFilter(filterBW);
+                        }
+
+                        if (boolGen4.equals("true")){
+                            imageGen4.setColorFilter(filterColor);
+                        }
+                        else {
+                            imageGen4.setColorFilter(filterBW);
+                        }
+
+                        if (boolGen5.equals("true")){
+                            imageGen5.setColorFilter(filterColor);
+                        }
+                        else {
+                            imageGen5.setColorFilter(filterBW);
+                        }
+
+                        if (boolGen6.equals("true")){
+                            imageGen6.setColorFilter(filterColor);
+                        }
+                        else {
+                            imageGen6.setColorFilter(filterBW);
+                        }
+                    }
+
+                }
+
+            }
+        });
     }
 
     private void replaceLayout(Fragment fragment){

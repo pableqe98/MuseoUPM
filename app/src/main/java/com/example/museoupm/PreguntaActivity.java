@@ -39,7 +39,9 @@ public class PreguntaActivity extends AppCompatActivity {
     int n_pregunta;
     int preguntas_acertadas;
     String email_saved;
-    String dificultad ;
+    String dificultad_cadena;
+    int dificultad ;
+    String generacion_nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,19 @@ public class PreguntaActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Generacion generacion = intent.getExtras().getParcelable("GENERACION");
         String generacion_titulo = intent.getExtras().getString("generacion_titulo");
-        dificultad = intent.getExtras().getString("dificultad");
+        dificultad_cadena = intent.getExtras().getString("dificultad");
+        switch (dificultad_cadena){
+            case "facil":
+                dificultad = 2;
+                break;
+            case "normal":
+                dificultad = 3;
+                break;
+            case "dificil":
+                dificultad = 4;
+                break;
+        }
+        generacion_nombre = intent.getExtras().getString("generacion_nombre");
 
         titulo_generacion.setText(generacion_titulo);
 
@@ -129,10 +143,18 @@ public class PreguntaActivity extends AppCompatActivity {
             cargarPregunta(n_pregunta);
         }
         else {
+            String text = Integer.toString(preguntas_acertadas) + "/5 aciertos"; //getString(R.string.mostrar_aciertos, Integer.toString(preguntas_acertadas));
+            contador.setText(text);
+
             Toast.makeText(this,"FIN DE GENERACION",Toast.LENGTH_LONG).show();
 
             SystemClock.sleep(4500);
-            //TODO: Gestionar medallas
+
+            String email_no_dot = email_saved.replace(".","");
+            if (preguntas_acertadas > dificultad) {
+                database.getReference().child("Usuarios").child(email_no_dot)
+                        .child("medallas").child(generacion_nombre).setValue(true);
+            }
 
             Intent intent = new Intent(PreguntaActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

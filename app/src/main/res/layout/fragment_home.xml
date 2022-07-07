@@ -53,7 +53,7 @@
             app:rowCount="3">
 
             <ImageView
-                android:id="@+id/imageGeneracion1"
+                android:id="@+id/imagegeneracion1"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
@@ -62,7 +62,7 @@
                 android:src="@android:drawable/star_big_on" />
 
             <ImageView
-                android:id="@+id/imageGeneracion2"
+                android:id="@+id/imagegeneracion2"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
@@ -70,7 +70,7 @@
                 android:layout_margin="7dp"
                 android:src="@android:drawable/star_big_on" />
             <ImageView
-                android:id="@+id/imageGeneracion3"
+                android:id="@+id/imagegeneracion3"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
@@ -78,7 +78,7 @@
                 android:layout_margin="7dp"
                 android:src="@android:drawable/star_big_on" />
             <ImageView
-                android:id="@+id/imageGeneracion4"
+                android:id="@+id/imagegeneracion4"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
@@ -86,7 +86,7 @@
                 android:layout_margin="7dp"
                 android:src="@android:drawable/star_big_on" />
             <ImageView
-                android:id="@+id/imageGeneracion5"
+                android:id="@+id/imagegeneracion5"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
@@ -94,7 +94,7 @@
                 android:layout_margin="7dp"
                 android:src="@android:drawable/star_big_on" />
             <ImageView
-                android:id="@+id/imageGeneracion6"
+                android:id="@+id/imagegeneracion6"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"

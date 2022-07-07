@@ -185,9 +185,10 @@ public class ScanQR extends AppCompatActivity {
                 intent.putExtra("GENERACION", (Parcelable) generacion);
                 intent.putExtra("generacion_titulo", titulo_generacion);
                 intent.putExtra("dificultad", dificultad);
+                intent.putExtra("generacion_nombre", nombreGeneracion);
                 startActivity(intent);
 
-                finish();
+                //finish();
 
             }
 
