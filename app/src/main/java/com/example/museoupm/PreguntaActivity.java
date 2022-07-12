@@ -1,5 +1,7 @@
 package com.example.museoupm;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -7,13 +9,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -121,16 +129,6 @@ public class PreguntaActivity extends AppCompatActivity {
             preguntas_acertadas++;
             msg = "ACERTASTE";
 
-            //Añado una nueva respuesta correcta a la BD
-            Date dt = new Date();
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.GERMANY);
-            String today = formatter.format(dt);
-
-            String email_no_dot = email_saved.replace(".","");
-
-            database.getReference().child("Usuarios").child(email_no_dot)
-                    .child("respuestas_correctas").push().setValue(today);
-
         }
         else{
             msg = "FALLASTE";
@@ -155,8 +153,41 @@ public class PreguntaActivity extends AppCompatActivity {
                 database.getReference().child("Usuarios").child(email_no_dot)
                         .child("medallas").child(generacion_nombre).setValue(true);
             }
+            else {
+                database.getReference().child("Usuarios").child(email_no_dot)
+                        .child("medallas").child(generacion_nombre).setValue(false);
+            }
+
+            //Añado las respuestas correctas a la BD
+            Date dt = new Date();
+            DateFormat formatter = new SimpleDateFormat("yyyy", Locale.GERMANY);
+            String today = formatter.format(dt);
+
+            DatabaseReference punctuation = database.getReference().child("Usuarios").child(email_no_dot)
+                    .child("respuestas_correctas").child(today);
+
+            punctuation.runTransaction(new Transaction.Handler() {
+                @NonNull
+                @Override
+                public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                    if (currentData.getValue(Integer.class) == null){
+                        currentData.setValue(preguntas_acertadas);
+                    }
+                    else {
+                        currentData.setValue(currentData.getValue(Integer.class) + preguntas_acertadas);
+                    }
+                    return Transaction.success(currentData);
+                }
+
+                @Override
+                public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                    Log.d("Transactiion update score", "transaction:onComplete:" + error);
+                }
+            });
 
             Intent intent = new Intent(PreguntaActivity.this, MainActivity.class);
+            intent.putExtra("email",email_saved);
+            intent.putExtra("tipo","google");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }

@@ -14,7 +14,8 @@
         android:theme="@style/Theme.MuseoUPM">
         <activity
             android:name=".LoginActvity"
-            android:exported="true" >
+            android:exported="true"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,8 +25,10 @@
         <activity
             android:name=".ScanQR"
             android:exported="false" />
-        <activity android:name=".PreguntaActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".PreguntaActivity"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

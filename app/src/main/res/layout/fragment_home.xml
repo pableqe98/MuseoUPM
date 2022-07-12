@@ -54,53 +54,54 @@
 
             <ImageView
                 android:id="@+id/imagegeneracion1"
-                app:layout_gravity="fill"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1"
-                android:background="@color/white"
                 android:layout_margin="7dp"
-                android:src="@android:drawable/star_big_on" />
+                android:background="@color/common_google_signin_btn_tint"
+                android:src="@drawable/gen1logo"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1" />
 
             <ImageView
                 android:id="@+id/imagegeneracion2"
-                app:layout_gravity="fill"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1"
-                android:background="@color/white"
                 android:layout_margin="7dp"
-                android:src="@android:drawable/star_big_on" />
+                android:background="@color/common_google_signin_btn_tint"
+                android:src="@drawable/gen2logo"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1" />
+
             <ImageView
                 android:id="@+id/imagegeneracion3"
-                app:layout_gravity="fill"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1"
-                android:background="@color/white"
                 android:layout_margin="7dp"
-                android:src="@android:drawable/star_big_on" />
+                android:background="@color/common_google_signin_btn_tint"
+                android:src="@drawable/gen3logo"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1" />
             <ImageView
                 android:id="@+id/imagegeneracion4"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
-                android:background="@color/white"
+                android:background="@color/common_google_signin_btn_tint"
                 android:layout_margin="7dp"
-                android:src="@android:drawable/star_big_on" />
+                android:src="@drawable/gen4logo" />
             <ImageView
                 android:id="@+id/imagegeneracion5"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
-                android:background="@color/white"
+                android:background="@color/common_google_signin_btn_tint"
                 android:layout_margin="7dp"
-                android:src="@android:drawable/star_big_on" />
+                android:src="@drawable/gen5logo" />
             <ImageView
                 android:id="@+id/imagegeneracion6"
                 app:layout_gravity="fill"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
-                android:background="@color/white"
+                android:background="@color/common_google_signin_btn_tint"
                 android:layout_margin="7dp"
-                android:src="@android:drawable/star_big_on" />
+                android:src="@drawable/gen6logo" />
         </androidx.gridlayout.widget.GridLayout>
 
         <Button
