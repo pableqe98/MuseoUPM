@@ -111,6 +111,7 @@
             android:layout_marginStart="155dp"
             android:layout_marginEnd="155dp"
             android:layout_marginBottom="50dp"
+            android:onClick="openRanking"
             android:text="@string/ranking"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

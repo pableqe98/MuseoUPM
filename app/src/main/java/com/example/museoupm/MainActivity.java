@@ -238,6 +238,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void openRanking(View v){
+        Bundle bundle = new Bundle();
+        bundle.putString("email", email);
+
+        RankingFragment rankingFragment = new RankingFragment();
+        rankingFragment.setArguments(bundle);
+        replaceLayout(rankingFragment);
+    }
+
     public void logOut(View v){
         SharedPreferences.Editor prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
         prefs.clear();

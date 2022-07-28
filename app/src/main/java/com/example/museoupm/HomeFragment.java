@@ -29,12 +29,10 @@ import java.util.Objects;
 public class HomeFragment extends Fragment {
 
     private DatabaseReference mDatabase;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String EMAIL = "email";
     TextView txtEmailHome;
 
-    // TODO: Rename and change types of parameters
+
     private String email;
 
     public HomeFragment() {
@@ -85,6 +83,6 @@ public class HomeFragment extends Fragment {
         String mensaje = getString(R.string.home_message,email);
         txtEmailHome.setText(mensaje);
 
-        //TODO: Load medals
+
     }
 }
