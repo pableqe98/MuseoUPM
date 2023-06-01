@@ -4,53 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_ranking"
     tools:context=".RankingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:onClick="backToMain"
+            android:src="?attr/actionModeCloseDrawable"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/txtRankingTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="RANKING"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="698dp"
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtRankingTitle">
 
-            <TableRow
+            <TableLayout
+                android:id="@+id/tableRanking"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="2dp"
+                android:background="@drawable/border"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtRankingTitle">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_title_table"
+                        android:padding="6dip"
+                        android:text="@string/user_name"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </TableLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_title_table"
+                        android:padding="6dip"
+                        android:text="@string/score"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

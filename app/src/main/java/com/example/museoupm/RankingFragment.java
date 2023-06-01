@@ -1,16 +1,23 @@
 package com.example.museoupm;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,8 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.Year;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +46,8 @@ public class RankingFragment extends Fragment {
     private HashMap<String,Long> actualYear = new HashMap<>();
     private HashMap<String,Long> global = new HashMap<>();
 
+    private TableLayout mTableLayout;
+
     public RankingFragment() {
         // Required empty public constructor
     }
@@ -49,7 +60,7 @@ public class RankingFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment RankingFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static RankingFragment newInstance(String param1, String param2) {
         RankingFragment fragment = new RankingFragment();
         Bundle args = new Bundle();
@@ -80,6 +91,8 @@ public class RankingFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
+        mTableLayout = (TableLayout) requireView().findViewById(R.id.tableRanking);
+
         mDatabase.child("Usuarios").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -106,6 +119,32 @@ public class RankingFragment extends Fragment {
                             });
                             global.put(username, totalPoints.get().longValue());
                         }
+
+                        //Global has all values, now sort is needed
+                        global = sortByValue(global);
+
+                        //Print all in table
+
+                        for (String clave:global.keySet()) {
+                            Long valor = global.get(clave);
+
+                            mTableLayout = (TableLayout) requireView().findViewById(R.id.tableRanking);
+                            final TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.table_row, null);
+                            TextView tv;
+
+                            tv = (TextView) tableRow.findViewById(R.id.username_ranking);
+                            //Get just username not email
+                            clave = clave.split("@")[0];
+                            tv.setText(clave);
+
+                            tv = (TextView) tableRow.findViewById(R.id.score_ranking);
+                            if (valor != null) {
+                                tv.setText(valor.toString());
+                            }
+
+                            mTableLayout.addView(tableRow);
+                        }
+
                     }
                 }
 
@@ -129,5 +168,23 @@ public class RankingFragment extends Fragment {
         } catch (NumberFormatException e) {
         }
         return false;
+    }
+
+    // function to sort hashmap by values
+    public static HashMap<String, Long>
+    sortByValue(HashMap<String, Long> hm)
+    {
+        HashMap<String, Long> temp
+                = hm.entrySet()
+                .stream()
+                .sorted((i1, i2)
+                        -> i2.getValue().compareTo(
+                        i1.getValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1, LinkedHashMap::new));
+
+        return temp;
     }
 }

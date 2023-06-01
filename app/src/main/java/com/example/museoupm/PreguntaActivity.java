@@ -60,11 +60,11 @@ public class PreguntaActivity extends AppCompatActivity {
 
         titulo_generacion = (TextView) findViewById(R.id.txtTituloGeneracion);
         enunciado = (TextView) findViewById(R.id.txtPregunta);
-        respuesta1 = (RadioButton) findViewById(R.id.facil);
-        respuesta2 = (RadioButton) findViewById(R.id.normal);
-        respuesta3 = (RadioButton) findViewById(R.id.dificil);
+        respuesta1 = (RadioButton) findViewById(R.id.respuesta1);
+        respuesta2 = (RadioButton) findViewById(R.id.respuesta2);
+        respuesta3 = (RadioButton) findViewById(R.id.respuesta3);
         respuesta4 = (RadioButton) findViewById(R.id.respuesta4);
-        radioGroup = (RadioGroup) findViewById(R.id.rgDificultad);
+        radioGroup = (RadioGroup) findViewById(R.id.rgRespuestas);
         contador = (TextView) findViewById(R.id.txtAciertos);
 
         SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
@@ -171,10 +171,10 @@ public class PreguntaActivity extends AppCompatActivity {
                 @Override
                 public Transaction.Result doTransaction(@NonNull MutableData currentData) {
                     if (currentData.getValue(Integer.class) == null){
-                        currentData.setValue(preguntas_acertadas);
+                        currentData.setValue(preguntas_acertadas * dificultad);
                     }
                     else {
-                        currentData.setValue(currentData.getValue(Integer.class) + preguntas_acertadas);
+                        currentData.setValue(currentData.getValue(Integer.class) + preguntas_acertadas * dificultad);
                     }
                     return Transaction.success(currentData);
                 }

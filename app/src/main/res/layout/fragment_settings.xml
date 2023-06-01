@@ -40,19 +40,19 @@
                     android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/facil"
+                        android:id="@+id/respuesta1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Fácil" />
 
                     <RadioButton
-                        android:id="@+id/normal"
+                        android:id="@+id/respuesta2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Normal" />
 
                     <RadioButton
-                        android:id="@+id/dificil"
+                        android:id="@+id/respuesta3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Difícil" />

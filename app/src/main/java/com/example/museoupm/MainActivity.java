@@ -1,5 +1,6 @@
 package com.example.museoupm;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -196,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void replaceLayout(Fragment fragment){
+    public void replaceLayout(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout,fragment);
@@ -245,6 +246,16 @@ public class MainActivity extends AppCompatActivity {
         RankingFragment rankingFragment = new RankingFragment();
         rankingFragment.setArguments(bundle);
         replaceLayout(rankingFragment);
+    }
+
+    public void backToMain(View v){
+        Bundle bundle = new Bundle();
+        bundle.putString("email", email);
+
+        HomeFragment homeFragment = new HomeFragment();
+        homeFragment.setArguments(bundle);
+        setObtainedMedals();
+        replaceLayout(homeFragment);
     }
 
     public void logOut(View v){

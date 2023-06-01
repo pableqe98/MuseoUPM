@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "674657844922-qv3cdo192bai23jviahl0nd97g4tdth0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.museoupm",
+            "certificate_hash": "b73fefd8d8280e5c8334fbe900abb46fda9057a1"
+          }
+        },
+        {
           "client_id": "674657844922-rdp48g2qskj0cnh2mgjtjj0oih5uomm2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
