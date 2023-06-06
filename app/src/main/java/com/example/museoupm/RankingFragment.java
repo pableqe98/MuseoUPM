@@ -120,15 +120,36 @@ public class RankingFragment extends Fragment {
                             global.put(username, totalPoints.get().longValue());
                         }
 
-                        //Global has all values, now sort is needed
+                        //Sort
                         global = sortByValue(global);
+                        actualYear = sortByValue(actualYear);
 
-                        //Print all in table
+                        //Print in tables
 
                         for (String clave:global.keySet()) {
                             Long valor = global.get(clave);
 
                             mTableLayout = (TableLayout) requireView().findViewById(R.id.tableRanking);
+                            final TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.table_row, null);
+                            TextView tv;
+
+                            tv = (TextView) tableRow.findViewById(R.id.username_ranking);
+                            //Get just username not email
+                            clave = clave.split("@")[0];
+                            tv.setText(clave);
+
+                            tv = (TextView) tableRow.findViewById(R.id.score_ranking);
+                            if (valor != null) {
+                                tv.setText(valor.toString());
+                            }
+
+                            mTableLayout.addView(tableRow);
+                        }
+
+                        for (String clave:actualYear.keySet()) {
+                            Long valor = actualYear.get(clave);
+
+                            mTableLayout = (TableLayout) requireView().findViewById(R.id.tableYearRanking);
                             final TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.table_row, null);
                             TextView tv;
 
