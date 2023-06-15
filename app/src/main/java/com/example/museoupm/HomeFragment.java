@@ -1,5 +1,7 @@
 package com.example.museoupm;
 
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -82,6 +85,32 @@ public class HomeFragment extends Fragment {
 
         String mensaje = getString(R.string.home_message,email);
         txtEmailHome.setText(mensaje);
+
+        if (email.equals("anonimo")){
+
+            TextView noMedals = (TextView) requireView().findViewById(R.id.txtMedallas);
+            noMedals.setText(R.string.no_medals);
+            noMedals.setTextSize(20);
+
+            ImageView imageGen1 = (ImageView) requireView().findViewById(R.id.imagegeneracion1);
+            ImageView imageGen2 = (ImageView) requireView().findViewById(R.id.imagegeneracion2);
+            ImageView imageGen3 = (ImageView) requireView().findViewById(R.id.imagegeneracion3);
+            ImageView imageGen4 = (ImageView) requireView().findViewById(R.id.imagegeneracion4);
+            ImageView imageGen5 = (ImageView) requireView().findViewById(R.id.imagegeneracion5);
+            ImageView imageGen6 = (ImageView) requireView().findViewById(R.id.imagegeneracion6);
+
+            ColorMatrix matrixBW = new ColorMatrix();
+            matrixBW.setSaturation(0);
+            ColorMatrixColorFilter filterBW = new ColorMatrixColorFilter(matrixBW);
+
+            imageGen1.setColorFilter(filterBW);
+            imageGen2.setColorFilter(filterBW);
+            imageGen3.setColorFilter(filterBW);
+            imageGen4.setColorFilter(filterBW);
+            imageGen5.setColorFilter(filterBW);
+            imageGen6.setColorFilter(filterBW);
+
+        }
 
 
     }

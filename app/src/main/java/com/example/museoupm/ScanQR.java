@@ -81,17 +81,21 @@ public class ScanQR extends AppCompatActivity {
             else {
                 token = result.getContents();
                 Log.e("Result",token);
-                database.getReference().child("Usuarios").child(email).child("dificultad").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        if (!task.isSuccessful()) {
-                            Log.e("firebase", "Error getting data", task.getException());
+                if (email.equals("anonimo")){
+                    dificultad = "normal";
+                }else {
+                    database.getReference().child("Usuarios").child(email).child("dificultad").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            } else {
+
+                                dificultad = Objects.requireNonNull(task.getResult().getValue()).toString();
+                            }
                         }
-                        else {
-                            dificultad = Objects.requireNonNull(task.getResult().getValue()).toString();
-                        }
-                    }
-                });
+                    });
+                }
                 generacion(token);
 
             }

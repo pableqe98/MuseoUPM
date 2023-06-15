@@ -54,6 +54,18 @@
                 app:srcCompat="@drawable/googleicon" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnAnomLogin"
+            style="@style/Button.White"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
+            android:onClick="initNoLogin"
+            android:text="@string/anom_login"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

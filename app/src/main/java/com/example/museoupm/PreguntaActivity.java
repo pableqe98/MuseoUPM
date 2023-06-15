@@ -68,7 +68,7 @@ public class PreguntaActivity extends AppCompatActivity {
         contador = (TextView) findViewById(R.id.txtAciertos);
 
         SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        email_saved = prefs.getString("emailGoogle",null);
+        email_saved = prefs.getString("emailGoogle","anonimo");
 
         Intent intent = getIntent();
         Generacion generacion = intent.getExtras().getParcelable("GENERACION");
@@ -148,43 +148,42 @@ public class PreguntaActivity extends AppCompatActivity {
 
             SystemClock.sleep(4500);
 
-            String email_no_dot = email_saved.replace(".","");
-            if (preguntas_acertadas > dificultad) {
-                database.getReference().child("Usuarios").child(email_no_dot)
-                        .child("medallas").child(generacion_nombre).setValue(true);
-            }
-            else {
-                database.getReference().child("Usuarios").child(email_no_dot)
-                        .child("medallas").child(generacion_nombre).setValue(false);
-            }
-
-            //Añado las respuestas correctas a la BD
-            Date dt = new Date();
-            DateFormat formatter = new SimpleDateFormat("yyyy", Locale.GERMANY);
-            String today = formatter.format(dt);
-
-            DatabaseReference punctuation = database.getReference().child("Usuarios").child(email_no_dot)
-                    .child("respuestas_correctas").child(today);
-
-            punctuation.runTransaction(new Transaction.Handler() {
-                @NonNull
-                @Override
-                public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                    if (currentData.getValue(Integer.class) == null){
-                        currentData.setValue(preguntas_acertadas * dificultad);
-                    }
-                    else {
-                        currentData.setValue(currentData.getValue(Integer.class) + preguntas_acertadas * dificultad);
-                    }
-                    return Transaction.success(currentData);
+            if (!email_saved.equals("anonimo")) {
+                String email_no_dot = email_saved.replace(".", "");
+                if (preguntas_acertadas > dificultad) {
+                    database.getReference().child("Usuarios").child(email_no_dot)
+                            .child("medallas").child(generacion_nombre).setValue(true);
+                } else {
+                    database.getReference().child("Usuarios").child(email_no_dot)
+                            .child("medallas").child(generacion_nombre).setValue(false);
                 }
 
-                @Override
-                public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
-                    Log.d("Transactiion update score", "transaction:onComplete:" + error);
-                }
-            });
+                //Añado las respuestas correctas a la BD
+                Date dt = new Date();
+                DateFormat formatter = new SimpleDateFormat("yyyy", Locale.GERMANY);
+                String today = formatter.format(dt);
 
+                DatabaseReference punctuation = database.getReference().child("Usuarios").child(email_no_dot)
+                        .child("respuestas_correctas").child(today);
+
+                punctuation.runTransaction(new Transaction.Handler() {
+                    @NonNull
+                    @Override
+                    public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                        if (currentData.getValue(Integer.class) == null) {
+                            currentData.setValue(preguntas_acertadas * dificultad);
+                        } else {
+                            currentData.setValue(currentData.getValue(Integer.class) + preguntas_acertadas * dificultad);
+                        }
+                        return Transaction.success(currentData);
+                    }
+
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                        Log.d("Transaction update score", "transaction:onComplete:" + error);
+                    }
+                });
+            }
             Intent intent = new Intent(PreguntaActivity.this, MainActivity.class);
             intent.putExtra("email",email_saved);
             intent.putExtra("tipo","google");

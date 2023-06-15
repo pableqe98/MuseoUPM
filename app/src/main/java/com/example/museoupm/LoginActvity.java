@@ -54,6 +54,9 @@ public class LoginActvity extends AppCompatActivity {
         }
     }
 
+    public void initNoLogin(View v){
+        goMainActivity("anonimo","anonimo");
+    }
     public void googleLogin(View v){
 
         GoogleSignInOptions googleConf = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
