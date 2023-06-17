@@ -35,9 +35,13 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -229,7 +233,11 @@ public class MainActivity extends AppCompatActivity {
                     existsUser.child("medallas").child("generacion4").setValue(false);
                     existsUser.child("medallas").child("generacion5").setValue(false);
                     existsUser.child("medallas").child("generacion6").setValue(false);
-                    existsUser.child("respuestas_correctas").child("ejemplo").setValue("ejemplo");
+                    Date dt = new Date();
+                    DateFormat formatter = new SimpleDateFormat("yyyy", Locale.GERMANY);
+                    String today = formatter.format(dt);
+
+                    existsUser.child("respuestas_correctas").child(today).setValue(0);
                     existsUser.child("dificultad").setValue("normal");
 
                 }
